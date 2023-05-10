@@ -21,8 +21,7 @@
   }
 </script>
 
-<div
-  class="mx-auto max-w-screen-sm text-center py-10 px-16 flex flex-col space-y-10">
+<div class="mx-auto max-w-md text-center py-10 flex flex-col space-y-10">
   <div class="flex justify-center items-center mt-10">
     <p class="font-semibold text-3xl">/Ask</p>
   </div>
