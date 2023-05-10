@@ -32,4 +32,4 @@ You can start the server using this command:
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start editing the page by modifying `app/page.tsx`.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result. You can start editing the page by modifying `app/page.tsx`.
