@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte'
   import { addToast } from '$lib/store'
 
   export let link: string
@@ -22,9 +23,9 @@
     class="flex items-center justify-center py-1 px-1 bg-transparent"
     on:click="{handleCopy}">
     {#if copied}
-      <span class="i-lucide:clipboard-check"></span>
+      <Icon icon="lucide:clipboard-check" />
     {:else}
-      <span class="i-lucide:clipboard-copy"></span>
+      <Icon icon="lucide:clipboard-copy" />
     {/if}
   </button>
 </div>

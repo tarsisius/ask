@@ -1,5 +1,6 @@
 <script lang="ts">
   import { applyAction, enhance, type SubmitFunction } from '$app/forms'
+  import Icon from '@iconify/svelte'
   import { addToast } from '$lib/store'
 
   let loading = false
@@ -42,7 +43,9 @@
     <button
       class="flex items-center justify-center rounded-lg bg-brand-purple w-16">
       {#if loading}
-        <span class="i-lucide:loader-2 animate-spin"></span>
+        <Icon
+          icon="lucide:loader-2"
+          class="animate-spin" />
       {:else}
         Start
       {/if}

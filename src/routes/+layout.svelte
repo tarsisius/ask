@@ -1,6 +1,6 @@
 <script lang="ts">
-  import 'uno.css'
-  import '@unocss/reset/tailwind-compat.css'
+  import '../app.postcss'
+  import '@fontsource/albert-sans'
   import Toast from '$lib/components/toast.svelte'
 </script>
 
@@ -13,7 +13,7 @@
 
 <Toast />
 <body
-  class="flex flex-col min-h-screen text-brand-white bg-brand-black font-base">
+  class="flex flex-col min-h-screen text-brand-white bg-brand-black">
   <main class="px-4">
     <slot />
   </main>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms'
+  import Icon from '@iconify/svelte'
   import { addToast } from '$lib/store'
   import { formatTime } from '$lib/utils'
 
@@ -12,7 +13,7 @@
 
   let loading = false
   let opened = message.opened
-  
+
   const handle: SubmitFunction = () => {
     loading = true
     return async ({ result, form }) => {
@@ -51,18 +52,20 @@
             value="{message.id}" />
           <button
             class="flex justify-center items-center space-x-1 bg-transparent">
-            <span class="i-lucide:eye"></span>
+            <Icon icon="lucide:eye" />
             <p>open</p>
           </button>
         </form>
       {/if}
-      <span class="i-lucide:more-horizontal flex-none"></span>
+      <Icon icon="lucide:more-horizontal" />
     </div>
   </div>
   <div class="flex flex-col justify-center space-y-2">
     {#if loading}
       <div class="flex justify-center items-center">
-        <span class="i-lucide:loader-2 animate-spin"></span>
+        <Icon
+          icon="lucide:loader-2"
+          class="animate-spin" />
       </div>
     {:else if !opened}
       <p class="text-justify text-brand-white text-opacity-80 font-italic">

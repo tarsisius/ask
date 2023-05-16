@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms'
   import type { PageServerData } from './$types'
+  import Icon from '@iconify/svelte'
   import { addToast } from '$lib/store'
 
   export let data: PageServerData
@@ -23,8 +24,7 @@
   }
 </script>
 
-<div
-  class="mx-auto max-w-md text-center flex flex-col space-y-10">
+<div class="mx-auto max-w-md text-center flex flex-col space-y-10">
   <div class="flex justify-center items-center mt-10">
     <p class="font-semibold text-2xl">
       Send anonymous message to {data.user.username}
@@ -41,7 +41,7 @@
     <button
       class="flex items-center justify-center rounded-lg bg-brand-purple w-20 h-9">
       {#if loading}
-        <span class="i-lucide:loader-2 animate-spin"></span>
+        <Icon icon="lucide:loader-2" class="animate-spin"/>
       {:else}
         Send
       {/if}
