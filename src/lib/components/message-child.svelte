@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms'
+  import { invalidate } from '$app/navigation'
   import Icon from '@iconify/svelte'
   import { addToast } from '$lib/store'
   import { formatTime } from '$lib/utils'
@@ -11,15 +12,21 @@
     created_at: Date
   }
 
-  let loading = false
+  let menu = false
+
+  const handleMenu = () => {
+    menu = !menu
+  }
+
+  let openLoading = false
   let opened = message.opened
 
-  const handle: SubmitFunction = () => {
-    loading = true
+  const handleOpen: SubmitFunction = () => {
+    openLoading = true
     return async ({ result, form }) => {
       if (result.type === 'success') {
         form.reset()
-        loading = false
+        openLoading = false
         opened = !opened
       }
       if (result.type === 'failure') {
@@ -27,7 +34,27 @@
           'Fail to open cause internal error, please contact developer!',
           'error'
         )
-        loading = false
+        openLoading = false
+      }
+    }
+  }
+
+  let deleteLoading = false
+
+  const handleDelete: SubmitFunction = () => {
+    deleteLoading = true
+    return async ({ result, form }) => {
+      if (result.type === 'success') {
+        form.reset()
+        invalidate('messages')
+        deleteLoading = false
+      }
+      if (result.type === 'failure') {
+        addToast(
+          'Fail to open cause internal error, please contact developer!',
+          'error'
+        )
+        deleteLoading = false
       }
     }
   }
@@ -35,7 +62,7 @@
 
 <div
   class="flex flex-col space-y-4 w-full py-2 border-b border-brand-white border-opacity-20">
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center">
     <p
       class="flex justify-start text-xs font-italic text-brand-white text-opacity-50">
       {formatTime(message.created_at)}
@@ -45,7 +72,7 @@
         <form
           method="post"
           action="?/open"
-          use:enhance="{handle}">
+          use:enhance="{handleOpen}">
           <input
             type="hidden"
             name="id"
@@ -57,11 +84,60 @@
           </button>
         </form>
       {/if}
-      <Icon icon="lucide:more-horizontal" />
+      <div class="relative text-left">
+        <button
+          class="flex items-center"
+          on:click="{handleMenu}">
+          <Icon icon="lucide:more-horizontal" />
+        </button>
+        {#if menu}
+          <div
+            class="absolute right-0 z-10 mt-2 origin-top-right bg-brand-black rounded-lg shadow-lg overflow-hidden"
+            tabindex="-1">
+            <div class="py-1 bg-brand-white bg-opacity-10 text-brand-white">
+              <form
+                method="POST"
+                action="?/delete"
+                class="flex"
+                use:enhance="{handleDelete}">
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{message.id}" />
+                <button
+                  class="px-4 py-2 hover:bg-brand-black hover:bg-opacity-20"
+                  tabindex="-1">
+                  {#if deleteLoading}
+                    <Icon
+                      icon="lucide:loader-2"
+                      class="animate-spin" />
+                  {:else}
+                    Delete
+                  {/if}
+                </button>
+              </form>
+              <form
+                method="POST"
+                action="#"
+                class="flex">
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{message.id}" />
+                <button
+                  class="px-4 py-2 hover:bg-brand-black hover:bg-opacity-20"
+                  tabindex="-1">
+                  Share
+                </button>
+              </form>
+            </div>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
   <div class="flex flex-col justify-center space-y-2">
-    {#if loading}
+    {#if openLoading}
       <div class="flex justify-center items-center">
         <Icon
           icon="lucide:loader-2"

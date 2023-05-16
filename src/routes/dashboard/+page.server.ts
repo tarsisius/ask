@@ -39,6 +39,21 @@ export const actions = {
 
     const id = formData.get('id') as string
     const query = `UPDATE messages SET opened = true WHERE id = '${id}';`
+
+    try {
+      await conn.execute(query)
+    } catch (error) {
+      return fail(500)
+    }
+
+    return
+  },
+  delete: async ({ request }) => {
+    const formData = await request.formData()
+
+    const id = formData.get('id') as string
+    const query = `DELETE FROM messages WHERE id = '${id}';`
+
     try {
       await conn.execute(query)
     } catch (error) {

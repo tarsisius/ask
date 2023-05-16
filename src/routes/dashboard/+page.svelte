@@ -8,11 +8,11 @@
   export let data: PageServerData
   $: ({ user, streamed } = data)
 
-  let rotate = false
+  let refresh = false
   function refreshMessages() {
-    rotate = true
+    refresh = true
     invalidate('messages')
-    rotate = false
+    refresh = false
   }
 </script>
 
@@ -27,12 +27,14 @@
       <button on:click="{refreshMessages}">
         <Icon
           icon="lucide:refresh-ccw"
-          class="{rotate ? 'animate-spin' : ''}" />
+          class="{refresh ? 'animate-spin' : ''}" />
       </button>
     </div>
     {#await streamed.messages}
       <div class="py-10 flex justify-center">
-        <Icon icon='lucide:loader-2' class="animate-spin w-5" />
+        <Icon
+          icon="lucide:loader-2"
+          class="animate-spin w-5" />
       </div>
     {:then messages}
       <div class="flex flex-col w-full space-y-10">
