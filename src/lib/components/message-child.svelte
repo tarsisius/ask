@@ -47,6 +47,7 @@
       if (result.type === 'success') {
         form.reset()
         invalidate('messages')
+        addToast('Delete success', 'success')
         deleteLoading = false
       }
       if (result.type === 'failure') {
