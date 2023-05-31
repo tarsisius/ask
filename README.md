@@ -13,7 +13,7 @@
 - Super simple user interface
 
 **Tech Stack**
-- Sveltekit
+- NextJs 13 (app dir, server actions)
 - Planetscale database (mysql)
 - Tailwind css
 
