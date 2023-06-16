@@ -5,7 +5,7 @@
 **Introducing Ask** - an anonymous message platform for free.(an alternative to Secreto / NglLink)
 
 **Live Demo**
-[Vote](https://ask.thp.my.id)
+[Ask](https://ask.thp.my.id)
 
 **Features**
 - Creating Account.

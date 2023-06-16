@@ -29,5 +29,6 @@ export async function getJwtToken({
     .setIssuedAt()
     .setExpirationTime('30d')
     .sign(new TextEncoder().encode(process.env.JWT_SECRET_KEY))
+    
   return token
 }
